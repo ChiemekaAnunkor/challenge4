@@ -31,3 +31,22 @@ body {
 .form {
   display: none;
 }
+.highscore {
+  display: none;
+}
+
+.homepage {
+  display: none;
+}
+
+.homepage h1 {
+  color: blueviolet;
+}
+.homepage button:nth-child(3) {
+  border-radius: 10px;
+  background-color: aquamarine;
+}
+.homepage button:nth-child(4) {
+  border-radius: 10px;
+  background-color: blueviolet;
+}

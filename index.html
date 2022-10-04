@@ -9,13 +9,20 @@
   </head>
   <body>
     <div class="container">
-      <header class="heading">
-        <div class="viewHighScore"></div>
-        <div class="timer"></div>
-      </header>
       <section class="section">
-        <div class="homepage"></div>
+        <div class="homepage">
+          <h1>Quiz Apps</h1>
+          <p>
+            "Click start to begin, Once you click start their will be a timer.
+            Asnwer the question correctly to add more time, if the timer gets to
+            zero you lose";
+          </p>
+          <button class="startbutton">start game</button>
+
+          <button class="lscore">viewscore</button>
+        </div>
         <main class="gamemode">
+          <p></p>
           <p></p>
           <p></p>
           <button class="select" id="none"></button>
@@ -37,17 +44,19 @@
             placeholder="enter your name"
           />
 
-          <input type="submit" value="Submit" />
+          <input id="formSubmit" type="submit" value="Submit" />
         </form>
 
         <div class="highscore">
-          <!-- <button>Go Back</button>
-          <button>clear high scores</button> -->
+          <button class="gohome">Go Back</button>
+          <button class="clearscore">clear high scores</button>
+          <p class="showname"></p>
+          <p class="showscore"></p>
         </div>
       </section>
     </div>
 
     <!-- connect javascript file -->
-    <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

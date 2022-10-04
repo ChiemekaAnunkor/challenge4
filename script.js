@@ -3,6 +3,7 @@ let scoreForm = document.querySelector(".form");
 let playerScore = document.querySelector(".playerscore");
 let highScore = document.querySelector(".highscore");
 let homePage = document.querySelector(".homepage");
+const renderScore = document.querySelector(".lscore");
 
 //db
 const quizQuestion = [
@@ -81,21 +82,14 @@ const quizQuestion = [
   ],
 ];
 //create the homepage
-let gameHeading = document.createElement("h1");
-let gameDescription = document.createElement("p");
-let gameButton = document.createElement("button");
-function loadHomePage() {
-  gameHeading.textContent = "Quiz Apps";
-  gameDescription.textContent =
-    "Click start to begin, Once you click start their will be a timer. Asnwer the question correctly to add more time, if the timer gets to zero you lose";
-  gameButton.textContent = "Start Game";
 
-  homePage.appendChild(gameHeading);
-  homePage.appendChild(gameDescription);
-  homePage.appendChild(gameButton);
-  gameButton.classList.add("startbutton");
+function loadHomePage() {
+  homePage.style.display = "block";
 }
 loadHomePage();
+function removeHomePage() {
+  homePage.style.display = "none";
+}
 
 //display items on the list
 let validateClick;
@@ -123,13 +117,14 @@ function displayItems() {
   }
 
   //display questions with answers
-  gameMode.children[0].textContent = timeLeft + " seconds remaining";
+  gameMode.children[0].textContent = count + " points";
+  gameMode.children[1].textContent = timeLeft + " seconds remaining";
 
-  gameMode.children[1].textContent = currentQ[0];
-  gameMode.children[2].textContent = currentQ[1];
-  gameMode.children[3].textContent = currentQ[2];
-  gameMode.children[4].textContent = currentQ[3];
-  gameMode.children[5].textContent = currentQ[4];
+  gameMode.children[2].textContent = currentQ[0];
+  gameMode.children[3].textContent = currentQ[1];
+  gameMode.children[4].textContent = currentQ[2];
+  gameMode.children[5].textContent = currentQ[3];
+  gameMode.children[6].textContent = currentQ[4];
 
   validateClick = currentQ[5];
   countdown();
@@ -170,9 +165,7 @@ function reloadQuestion(e) {
 let StartGameButton = document.querySelector(".startbutton");
 
 StartGameButton.addEventListener("click", function () {
-  homePage.children[0].remove();
-  homePage.children[0].remove();
-  homePage.children[0].remove();
+  removeHomePage();
   let arr = document.querySelectorAll(".select");
   for (let i = 0; i < arr.length; i++) {
     arr[i].style.display = "block";
@@ -189,12 +182,39 @@ function removeGameMode() {
     arr[i].style.display = "none";
   }
 }
-//add form page
-
+//show form page
 function displaySubmitForm() {
   scoreForm.style.display = "block";
   playerScore.textContent = count;
 }
+//hide form elements
+function removeSubmitForm() {
+  scoreForm.style.display = "none";
+}
+
+//show highscore page
+function displayHighscorePage() {
+  highScore.style.display = "block";
+}
+function removeHighscorePage() {
+  highScore.style.display = "none";
+  loadHomePage();
+}
+//retrieve score from the previous player
+
+const showName = document.querySelector(".showname");
+const showScore = document.querySelector(".showscore");
+function GetPlayerScore() {
+  var playerName = localStorage.getItem("name");
+  var playerScore = localStorage.getItem("playscore");
+  if (!playerName || !playerScore) {
+    return;
+  }
+
+  showName.textContent = playerName;
+  showScore.textContent = playerScore;
+}
+
 // Timer that counts down from 5
 function countdown() {
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
@@ -202,16 +222,19 @@ function countdown() {
     // As long as the `timeLeft` is greater than 1
     if (timeLeft > 1) {
       // Set the `textContent` of `timerEl` to show the remaining seconds
-      gameMode.children[0].textContent = timeLeft + " seconds remaining";
+      gameMode.children[1].textContent = timeLeft + " seconds remaining";
       // Decrement `timeLeft` by 1
       timeLeft--;
     } else if (timeLeft === 1) {
       // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
-      gameMode.children[0].textContent = timeLeft + " second remaining";
+      gameMode.children[1].textContent = timeLeft + " second remaining";
       timeLeft--;
     } else {
       // Once `timeLeft` gets to 0, set `timerEl` to an empty string
+      gameMode.children[1].textContent = "";
       gameMode.children[0].textContent = "";
+      gameMode.children[2].textContent = "";
+
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
       removeGameMode();
@@ -221,3 +244,42 @@ function countdown() {
     }
   }, 1000);
 }
+
+const formSubmit = document.getElementById("formSubmit");
+function handleFormSubmit(e) {
+  e.preventDefault();
+  let enteredName = document.getElementById("name").value;
+  let enteredScore = count;
+  localStorage.setItem("name", enteredName);
+  localStorage.setItem("playscore", enteredScore);
+  console.log(enteredScore);
+  removeSubmitForm();
+
+  displayHighscorePage();
+  GetPlayerScore();
+}
+
+formSubmit.addEventListener("click", handleFormSubmit);
+
+//reloved start page
+const goHome = document.querySelector(".gohome");
+const clearScore = document.querySelector(".clearscore");
+
+goHome.addEventListener("click", removeHighscorePage);
+
+function clearHighScore() {
+  localStorage.setItem("name", " ");
+  localStorage.setItem("playscore", " ");
+
+  showName.textContent = " ";
+  showScore.textContent = "";
+}
+clearScore.addEventListener("click", clearHighScore);
+
+function loadScorePage() {
+  removeHomePage();
+  displayHighscorePage();
+  GetPlayerScore();
+}
+// load the score page from homepage
+renderScore.addEventListener("click", loadScorePage);
