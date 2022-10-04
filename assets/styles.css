@@ -4,3 +4,30 @@ body {
   padding: 0;
   display: block;
 }
+.container {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+.gamemode {
+  display: flex;
+  flex-direction: column; /* To make children "flow" downwards */
+}
+.gamemode button {
+  margin: 4px;
+  width: 20%;
+}
+.select {
+  display: none;
+}
+.blue {
+  background-color: blue;
+}
+
+#disablemouse {
+  pointer-events: none;
+}
+.form {
+  display: none;
+}

@@ -4,12 +4,50 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/styles.css" />
     <title>WebPAge</title>
   </head>
   <body>
-    <div>
-      <h1>Quiz Web Page</h1>
-      <p>Lorem</p>
+    <div class="container">
+      <header class="heading">
+        <div class="viewHighScore"></div>
+        <div class="timer"></div>
+      </header>
+      <section class="section">
+        <div class="homepage"></div>
+        <main class="gamemode">
+          <p></p>
+          <p></p>
+          <button class="select" id="none"></button>
+          <button class="select" id="none"></button>
+          <button class="select" id="none"></button>
+          <button class="select" id="none"></button>
+        </main>
+        <form action="" class="form">
+          <span> playerscore: </span>
+
+          <span class="playerscore"></span>
+          <span> name: </span>
+
+          <input
+            type="text"
+            name="name"
+            id="name"
+            required
+            placeholder="enter your name"
+          />
+
+          <input type="submit" value="Submit" />
+        </form>
+
+        <div class="highscore">
+          <!-- <button>Go Back</button>
+          <button>clear high scores</button> -->
+        </div>
+      </section>
     </div>
+
+    <!-- connect javascript file -->
+    <script type="module" src="script.js"></script>
   </body>
 </html>
