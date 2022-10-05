@@ -95,7 +95,7 @@ function removeHomePage() {
 let validateClick;
 
 let currentQ;
-let timeLeft = 2;
+let timeLeft = 30;
 let count = 0;
 
 function displayItems() {
